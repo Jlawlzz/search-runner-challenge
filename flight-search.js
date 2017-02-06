@@ -18,10 +18,11 @@ module.exports = {
     });
   },
 
+  // - pop (faster than shift) highest value between result arrays
+  //   into merged array until no values remain in collection
+  // - return reversed array.
+  
   mergeAndOrderResults(results) {
-    // - pop (faster than shift) highest value between arrays into array
-    //   until no values remain in collection
-    // - return reversed array.
     let mergedArr = [];
     while (results.some((r) => { r !== []; })) {
       let results = this.sortLargestVal(results);
@@ -36,8 +37,8 @@ module.exports = {
     });
   }
 
-  // The solution below is a tad quicker than results.sort, but is much harder to read.
-  // I have this saved for visibility.
+  // the solution below is a tad quicker than results.sort, but is much harder to read
+  // I have this saved for visibility
 
   // sortLargestVal(results) {
   //   let smallIndex = 0;
