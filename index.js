@@ -14,3 +14,7 @@ server.listen(port, () => {
 app.get('/', (req, res) => {
   res.send('Hello!');
 });
+
+app.get('/flights/search', (req, res) => {
+  res.json({results: 'results'});
+});
