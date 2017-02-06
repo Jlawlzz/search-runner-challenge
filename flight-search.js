@@ -12,9 +12,13 @@ module.exports = {
       async.map(this.services, (service, callback) => {
         flightScraper.search(service, callback);
       }, (err, results) => {
-        console.log(results);
+        results = this.orderResults(results);
         resolve(results);
       });
     });
+  },
+
+  orderResults(results) {
+    return results;
   }
 }
