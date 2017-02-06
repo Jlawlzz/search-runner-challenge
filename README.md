@@ -1,8 +1,8 @@
-### search-runner hipmunk challenge.
+### search-runner hipmunk challenge
 
-####How to run:
+####how to run:
 1. ```npm install```
 2. ```npm start```
 
-####How to test:
+####how to test:
 - ```npm test```
