@@ -12,13 +12,34 @@ module.exports = {
       async.map(this.services, (service, callback) => {
         flightScraper.search(service, callback);
       }, (err, results) => {
-        results = this.orderResults(results);
-        resolve(results);
+        this.results = results;
+        this.mergeResults();
+        this.orderResults();
+        resolve(this.results);
       });
     });
   },
 
-  orderResults(results) {
-    return results;
+  orderResults() {
+  },
+
+  mergeResults() {
+    const mergedArr = [];
+    let count = findLargestArrCount(this.results);
+    let resultsLength = this.results.length;
+    for (let i = 0; i < count; i++) {
+      for (let j = 0; j < resultsLength; j++) {
+        if (this.results[j][i] !== undefined) {
+          mergedArr.push(this.results[j][i]);
+        }
+      }
+    }
+    return mergedArr;
   }
+}
+
+function findLargestArrCount(results) {
+  return results.sort(function(a, b){
+    return b.length - a.length;
+  })[0].length;
 }
