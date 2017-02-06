@@ -19,6 +19,9 @@ module.exports = {
   },
 
   mergeAndOrderResults(results) {
+    // - pop (faster than shift) highest value between arrays into array
+    //   until no values remain in collection
+    // - return reversed array.
     let mergedArr = [];
     while (results.some((r) => { r !== []; })) {
       let results = this.sortLargestVal(results);
