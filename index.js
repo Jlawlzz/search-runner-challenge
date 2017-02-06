@@ -2,6 +2,7 @@
 
 const http = require('http');
 const express = require('express');
+const flightSearch = require('./flight-search');
 const app = express();
 
 const server = http.createServer(app);
@@ -16,5 +17,8 @@ app.get('/', (req, res) => {
 });
 
 app.get('/flights/search', (req, res) => {
-  res.json({results: 'results'});
+  flightSearch.getResults()
+  .then(results => {
+    res.json({results: results});
+  });
 });
