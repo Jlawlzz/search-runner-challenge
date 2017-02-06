@@ -20,6 +20,7 @@ module.exports = {
   },
 
   orderResults(results) {
+    // insertion sort since array is nearly sorted
     for(let i = 1; i < results.length; ++i) {
       let temp = results[i];
       let j = i - 1;
@@ -32,6 +33,7 @@ module.exports = {
   },
 
   mergeResults(results) {
+    // since each result comes back sorted, this function 'zips' the arrays together in place.
     const mergedArr = [];
     let count = findLargestArrCount(results);
     let resultsLength = results.length;
