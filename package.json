@@ -4,6 +4,7 @@
   "description": "Code challenge for Hipmunk",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "test"
   },
   "repository": {
@@ -15,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/Jlawlzz/search-runner-challenge/issues"
   },
-  "homepage": "https://github.com/Jlawlzz/search-runner-challenge#readme"
+  "homepage": "https://github.com/Jlawlzz/search-runner-challenge#readme",
+  "dependencies": {
+    "express": "^4.14.1"
+  }
 }
