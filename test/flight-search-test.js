@@ -3,12 +3,12 @@
 let assert = require('chai').assert;
 const flightSearch = require('../flight-search');
 
-let results = ['a', 'c', 'b', 'd'].map(service => {
+let results = [1, 2, 3, 4].map(service => {
   let items = [];
   for(let i = 0; i < 5; i++) {
     items.push({
       service: service,
-      agony: i
+      agony: i + service
     });
   }
   return items;
@@ -17,25 +17,13 @@ let results = ['a', 'c', 'b', 'd'].map(service => {
 describe('can merge array', () => {
 
   it('can zip input ', () => {
-    const mergedResults = flightSearch.mergeResults(results);
-    assert.equal(mergedResults.length, 20);
-    assert.equal(mergedResults[0].service, 'a');
-    assert.equal(mergedResults[0].agony, '0');
-    assert.equal(mergedResults[mergedResults.length - 1].service, 'd');
-    assert.equal(mergedResults[mergedResults.length - 1].agony, '4');
-  });
-
-});
-
-describe('can sort array', () => {
-
-  it('can re-arrange input', () => {
-    const mergedResults = flightSearch.mergeResults(results);
-    const shuffledArray = shuffleArray(mergedResults);
-    const sortedResults = flightSearch.orderResults(shuffledArray);
-    assert.equal(mergedResults.length, 20);
-    assert.equal(sortedResults[0].agony, '0');
-    assert.equal(sortedResults[mergedResults.length - 1].agony, '4');
+    const shuffledResults = shuffleArray(results);
+    const mergedResults = flightSearch.sortLargestVal(shuffledResults);
+    assert.equal(mergedResults.length, 4);
+    assert.equal(mergedResults[0][0].service, '4');
+    assert.equal(mergedResults[0][0].agony, '4');
+    assert.equal(mergedResults[mergedResults.length - 1][0].service, 1);
+    assert.equal(mergedResults[mergedResults.length - 1][0].agony, 1);
   });
 
 });

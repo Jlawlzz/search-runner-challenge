@@ -12,44 +12,44 @@ module.exports = {
       async.map(this.services, (service, callback) => {
         flightScraper.search(service, callback);
       }, (err, results) => {
-        const mergedResults = this.mergeResults(results);
-        const orderedResults = this.orderResults(mergedResults);
+        const orderedResults = this.mergeAndOrderResults(results);
         resolve(orderedResults);
       });
     });
   },
 
-  orderResults(results) {
-    // insertion sort since array is nearly sorted
-    for(let i = 1; i < results.length; ++i) {
-      let temp = results[i];
-      let j = i - 1;
-      for(; j >= 0 && results[j].agony > temp.agony; --j) {
-        results[j+1] = results[j];
-      }
-      results[j+1] = temp;
-    }
-    return results;
+  // - pop (faster than shift) highest value between result arrays
+  //   into merged array until no values remain in collection
+  // - return reversed array.
+  
+  mergeAndOrderResults(results) {
+    let mergedArr = [];
+    while (results.some((r) => { r !== []; })) {
+      let results = this.sortLargestVal(results);
+      mergedArr.push(results[results].pop());
+    };
+    return mergedArr.reverse();
   },
 
-  mergeResults(results) {
-    // since each result comes back sorted, this function 'zips' the arrays together in place.
-    const mergedArr = [];
-    let count = findLargestArrCount(results);
-    let resultsLength = results.length;
-    for (let i = 0; i < count; i++) {
-      for (let j = 0; j < resultsLength; j++) {
-        if (results[j][i] !== undefined) {
-          mergedArr.push(results[j][i]);
-        }
-      }
-    }
-    return mergedArr;
+  sortLargestVal(results) {
+    return results.sort((a, b) => {
+      return b[b.length - 1].agony - a[a.length - 1].agony;
+    });
   }
-}
 
-function findLargestArrCount(results) {
-  return results.sort(function(a, b){
-    return b.length - a.length;
-  })[0].length;
-}
+  // the solution below is a tad quicker than results.sort, but is much harder to read
+  // I have this saved for visibility
+
+  // sortLargestVal(results) {
+  //   let smallIndex = 0;
+  //   for (let i = 0; i < results.length; i++) {
+  //     let result = results[i];
+  //     let smallResult = results[smallIndex];
+  //     if (result[result.length - 1].agony > smallResult[smallResult.length -1].agony) {
+  //       smallIndex = i;
+  //     }
+  //   }
+  //   return smallIndex;
+  // }
+
+};
